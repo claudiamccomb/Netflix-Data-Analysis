@@ -5,18 +5,10 @@ durations = [103, 101, 99, 100, 100, 95, 95, 96, 93, 90]
 # Create a dictionary with the two lists
 movie_dict = {"years":years, "durations":durations}
 
-# Import pandas under its usual alias
 import pandas as pd
 
 # Create a DataFrame from the dictionary
 durations_df = pd.DataFrame(movie_dict)
-
-# Print the DataFrame
-print(durations_df)
-
-# Import matplotlib.pyplot
-import matplotlib.pyplot as plt
-fig = plt.figure()
 
 # Read in the CSV as a DataFrame
 netflix_df = pd.read_csv("datasets/netflix_data.csv")
@@ -26,9 +18,6 @@ netflix_df_movies_only = netflix_df[netflix_df.type == "Movie"]
 
 # Select only the columns of interest
 netflix_movies_col_subset = netflix_df_movies_only[['title', 'country', 'genre', 'release_year', 'duration']]
-
-# Create a figure and increase the figure size
-fig = plt.figure(figsize=(12,8))
 
 # Filter for durations shorter than 60 minutes
 short_movies = netflix_movies_col_subset[netflix_movies_col_subset["duration"] < 60]
@@ -50,6 +39,8 @@ for lab, row in netflix_movies_col_subset.iterrows():
 # Inspect the first 10 values in your list      
 colors[0:10]
 
+import matplotlib.pyplot as plt
+
 # Set the figure style and initalize a new figure
 plt.style.use('fivethirtyeight')
 fig = plt.figure(figsize=(12,8))
@@ -62,5 +53,4 @@ plt.title("Movie duration by year of release")
 plt.xlabel("Release year")
 plt.ylabel("Duration (min)")
 
-# Show the plot
 plt.show()
