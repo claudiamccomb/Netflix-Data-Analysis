@@ -1,33 +1,8 @@
 import pandas as pd
 
-# Read in the CSV as a DataFrame
-netflix_df = pd.read_csv("datasets/netflix_data.csv")
+movies_df = pd.read_csv("movies_metadata.csv", low_memory = False)
 
-# Subset the DataFrame for type "Movie"
-netflix_df_movies_only = netflix_df[netflix_df.type == "Movie"]
-
-# Select only the columns of interest
-netflix_movies_col_subset = netflix_df_movies_only[['title', 'country', 'genre', 'release_year', 'duration']]
-
-# Filter for durations shorter than 60 minutes
-short_movies = netflix_movies_col_subset[netflix_movies_col_subset["duration"] < 60]
-
-# Define an empty list
-colors = []
-
-# Iterate over rows of netflix_movies_col_subset
-for lab, row in netflix_movies_col_subset.iterrows():
-    if row['genre'] == "Children":
-        colors.append("red")
-    elif row['genre'] == "Documentaries":
-        colors.append("blue")
-    elif row['genre'] == "Stand-Up":
-        colors.append("green")
-    else:
-        colors.append("black")
-
-# Inspect the first 10 values in your list      
-colors[0:10]
+movies_col_subset = movies_df[['budget', 'genres', 'title', 'release_date', 'revenue', 'runtime', 'vote_average']]
 
 import matplotlib.pyplot as plt
 
@@ -36,11 +11,11 @@ plt.style.use('fivethirtyeight')
 fig = plt.figure(figsize=(12,8))
 
 # Create a scatter plot of duration versus release_year
-plt.scatter(netflix_movies_col_subset["release_year"], netflix_movies_col_subset["duration"], c=colors)
+plt.scatter(movies_col_subset["runtime"], movies_col_subset["vote_average"])
 
 # Create a title and axis labels
-plt.title("Movie duration by year of release")
-plt.xlabel("Release year")
+plt.title("Movie duration by audience rating")
+plt.xlabel("Audience Rating")
 plt.ylabel("Duration (min)")
 
 plt.show()
